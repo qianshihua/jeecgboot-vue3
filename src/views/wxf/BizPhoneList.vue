@@ -29,6 +29,10 @@
       </template>
       <!--字段回显插槽-->
       <template v-slot:bodyCell="{ column, record, index, text }">
+        <template v-if="column.dataIndex==='provinceCode'">
+          <!--省市区字段回显插槽-->
+          {{ getAreaTextByCode(text) }}
+        </template>
       </template>
     </BasicTable>
     <!-- 表单区域 -->
@@ -46,6 +50,7 @@
   import {list, deleteOne, batchDelete, getImportUrl,getExportUrl} from './BizPhone.api';
   import { downloadFile } from '/@/utils/common/renderUtils';
   import { useUserStore } from '/@/store/modules/user';
+  import { getAreaTextByCode } from '/@/components/Form/src/utils/Area';
   const queryParam = reactive<any>({});
   const checkedKeys = ref<Array<string | number>>([]);
   const userStore = useUserStore();

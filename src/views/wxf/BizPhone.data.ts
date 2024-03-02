@@ -17,7 +17,7 @@ export const columns: BasicColumn[] = [
    {
     title: '省编码',
     align:"center",
-    dataIndex: 'provinceCode'
+    dataIndex: 'provinceCode',
    },
    {
     title: '市编码',
@@ -32,22 +32,27 @@ export const columns: BasicColumn[] = [
    {
     title: '性别',
     align:"center",
-    dataIndex: 'gender'
+    dataIndex: 'gender_dictText'
    },
    {
-    title: '是否黑名单YN',
+    title: '是否黑名单',
     align:"center",
-    dataIndex: 'black'
+    dataIndex: 'black_dictText'
    },
    {
-    title: '客户状态-成功客户-失败客户',
+    title: '客户状态',
     align:"center",
     dataIndex: 'clientStatus'
    },
    {
-    title: '最近提取时间，最近导出时间',
+    title: '最近提取时间',
     align:"center",
     dataIndex: 'lastExportTime'
+   },
+   {
+    title: '客户号码',
+    align:"center",
+    dataIndex: 'phone'
    },
 ];
 //查询数据
@@ -55,7 +60,7 @@ export const searchFormSchema: FormSchema[] = [
 	{
       label: "省编码",
       field: 'provinceCode',
-      component: 'Input',
+      component: 'JAreaLinkage',
       //colProps: {span: 6},
  	},
 	{
@@ -71,13 +76,13 @@ export const searchFormSchema: FormSchema[] = [
       //colProps: {span: 6},
  	},
 	{
-      label: "客户状态-成功客户-失败客户",
+      label: "客户状态",
       field: 'clientStatus',
       component: 'Input',
       //colProps: {span: 6},
  	},
      {
-      label: "最近提取时间，最近导出时间",
+      label: "最近提取时间",
       field: "lastExportTime",
       component: 'RangePicker',
       componentProps: {
@@ -102,7 +107,7 @@ export const formSchema: FormSchema[] = [
   {
     label: '省编码',
     field: 'provinceCode',
-    component: 'Input',
+    component: 'JAreaLinkage',
   },
   {
     label: '市编码',
@@ -117,26 +122,37 @@ export const formSchema: FormSchema[] = [
   {
     label: '性别',
     field: 'gender',
-    component: 'Input',
+    component: 'JDictSelectTag',
+    componentProps:{
+        dictCode:"sex"
+     },
   },
   {
-    label: '是否黑名单YN',
+    label: '是否黑名单',
     field: 'black',
-    component: 'Input',
+    component: 'JDictSelectTag',
+    componentProps:{
+        dictCode:"yn"
+     },
   },
   {
-    label: '客户状态-成功客户-失败客户',
+    label: '客户状态',
     field: 'clientStatus',
     component: 'Input',
   },
   {
-    label: '最近提取时间，最近导出时间',
+    label: '最近提取时间',
     field: 'lastExportTime',
     component: 'DatePicker',
     componentProps: {
        showTime: true,
        valueFormat: 'YYYY-MM-DD HH:mm:ss'
      },
+  },
+  {
+    label: '客户号码',
+    field: 'phone',
+    component: 'Input',
   },
 	// TODO 主键隐藏字段，目前写死为ID
 	{
@@ -151,13 +167,14 @@ export const formSchema: FormSchema[] = [
 export const superQuerySchema = {
   clientName: {title: '客户名称',order: 0,view: 'text', type: 'string',},
   address: {title: '地址',order: 1,view: 'text', type: 'string',},
-  provinceCode: {title: '省编码',order: 2,view: 'text', type: 'string',},
+  provinceCode: {title: '省编码',order: 2,view: 'pca', type: 'string',},
   cityCode: {title: '市编码',order: 3,view: 'text', type: 'string',},
   batchNo: {title: '批次号',order: 4,view: 'text', type: 'string',},
-  gender: {title: '性别',order: 5,view: 'text', type: 'string',},
-  black: {title: '是否黑名单YN',order: 6,view: 'text', type: 'string',},
-  clientStatus: {title: '客户状态-成功客户-失败客户',order: 7,view: 'text', type: 'string',},
-  lastExportTime: {title: '最近提取时间，最近导出时间',order: 8,view: 'datetime', type: 'string',},
+  gender: {title: '性别',order: 5,view: 'list', type: 'string',dictCode: 'sex',},
+  black: {title: '是否黑名单',order: 6,view: 'list', type: 'string',dictCode: 'yn',},
+  clientStatus: {title: '客户状态',order: 7,view: 'text', type: 'string',},
+  lastExportTime: {title: '最近提取时间',order: 8,view: 'datetime', type: 'string',},
+  phone: {title: '客户号码',order: 9,view: 'text', type: 'string',},
 };
 
 /**
