@@ -10,7 +10,7 @@ export const columns: BasicColumn[] = [
     dataIndex: 'callTime'
    },
    {
-    title: '通话时长-秒',
+    title: '通话时长',
     align:"center",
     dataIndex: 'callDuration'
    },
@@ -20,14 +20,14 @@ export const columns: BasicColumn[] = [
     dataIndex: 'recordingAddress'
    },
    {
-    title: '是否拉黑y-n',
+    title: '是否拉黑',
     align:"center",
-    dataIndex: 'blackFlag'
+    dataIndex: 'blackFlag_dictText'
    },
    {
     title: '性别',
     align:"center",
-    dataIndex: 'gender'
+    dataIndex: 'gender_dictText'
    },
    {
     title: '坐席工号',
@@ -50,7 +50,7 @@ export const columns: BasicColumn[] = [
     dataIndex: 'clientAddress'
    },
    {
-    title: '金额、价格',
+    title: '备注',
     align:"center",
     dataIndex: 'price'
    },
@@ -58,6 +58,21 @@ export const columns: BasicColumn[] = [
     title: '任务名称',
     align:"center",
     dataIndex: 'jobName'
+   },
+   {
+    title: '批次号',
+    align:"center",
+    dataIndex: 'batchNo'
+   },
+   {
+    title: '客户状态',
+    align:"center",
+    dataIndex: 'clientStatus_dictText'
+   },
+   {
+    title: '客户号码',
+    align:"center",
+    dataIndex: 'phone'
    },
 ];
 //查询数据
@@ -75,7 +90,7 @@ export const formSchema: FormSchema[] = [
      },
   },
   {
-    label: '通话时长-秒',
+    label: '通话时长',
     field: 'callDuration',
     component: 'InputNumber',
   },
@@ -85,14 +100,20 @@ export const formSchema: FormSchema[] = [
     component: 'Input',
   },
   {
-    label: '是否拉黑y-n',
+    label: '是否拉黑',
     field: 'blackFlag',
-    component: 'Input',
+    component: 'JDictSelectTag',
+    componentProps:{
+        dictCode:"yn"
+     },
   },
   {
     label: '性别',
     field: 'gender',
-    component: 'Input',
+    component: 'JDictSelectTag',
+    componentProps:{
+        dictCode:"sex"
+     },
   },
   {
     label: '坐席工号',
@@ -115,13 +136,31 @@ export const formSchema: FormSchema[] = [
     component: 'Input',
   },
   {
-    label: '金额、价格',
+    label: '备注',
     field: 'price',
-    component: 'InputNumber',
+    component: 'Input',
   },
   {
     label: '任务名称',
     field: 'jobName',
+    component: 'Input',
+  },
+  {
+    label: '批次号',
+    field: 'batchNo',
+    component: 'Input',
+  },
+  {
+    label: '客户状态',
+    field: 'clientStatus',
+    component: 'JDictSelectTag',
+    componentProps:{
+        dictCode:"client_status"
+     },
+  },
+  {
+    label: '客户号码',
+    field: 'phone',
     component: 'Input',
   },
 	// TODO 主键隐藏字段，目前写死为ID
@@ -136,16 +175,19 @@ export const formSchema: FormSchema[] = [
 // 高级查询数据
 export const superQuerySchema = {
   callTime: {title: '开始时间',order: 0,view: 'datetime', type: 'string',},
-  callDuration: {title: '通话时长-秒',order: 1,view: 'number', type: 'number',},
+  callDuration: {title: '通话时长',order: 1,view: 'number', type: 'number',},
   recordingAddress: {title: '录音地址',order: 2,view: 'text', type: 'string',},
-  blackFlag: {title: '是否拉黑y-n',order: 3,view: 'text', type: 'string',},
-  gender: {title: '性别',order: 4,view: 'text', type: 'string',},
+  blackFlag: {title: '是否拉黑',order: 3,view: 'list', type: 'string',dictCode: 'yn',},
+  gender: {title: '性别',order: 4,view: 'list', type: 'string',dictCode: 'sex',},
   seatsNum: {title: '坐席工号',order: 5,view: 'text', type: 'string',},
   seatsName: {title: '坐席姓名',order: 6,view: 'text', type: 'string',},
   clientName: {title: '客户姓名',order: 7,view: 'text', type: 'string',},
   clientAddress: {title: '客户地址',order: 8,view: 'text', type: 'string',},
-  price: {title: '金额、价格',order: 9,view: 'number', type: 'number',},
+  price: {title: '备注',order: 9,view: 'text', type: 'string',},
   jobName: {title: '任务名称',order: 10,view: 'text', type: 'string',},
+  batchNo: {title: '批次号',order: 11,view: 'text', type: 'string',},
+  clientStatus: {title: '客户状态',order: 12,view: 'list', type: 'string',dictCode: 'client_status',},
+  phone: {title: '客户号码',order: 13,view: 'text', type: 'string',},
 };
 
 /**

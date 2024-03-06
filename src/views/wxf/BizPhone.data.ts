@@ -15,14 +15,9 @@ export const columns: BasicColumn[] = [
     dataIndex: 'address'
    },
    {
-    title: '省编码',
+    title: '区域',
     align:"center",
     dataIndex: 'provinceCode',
-   },
-   {
-    title: '市编码',
-    align:"center",
-    dataIndex: 'cityCode'
    },
    {
     title: '批次号',
@@ -42,7 +37,7 @@ export const columns: BasicColumn[] = [
    {
     title: '客户状态',
     align:"center",
-    dataIndex: 'clientStatus'
+    dataIndex: 'clientStatus_dictText'
    },
    {
     title: '最近提取时间',
@@ -58,15 +53,9 @@ export const columns: BasicColumn[] = [
 //查询数据
 export const searchFormSchema: FormSchema[] = [
 	{
-      label: "省编码",
+      label: "区域",
       field: 'provinceCode',
       component: 'JAreaLinkage',
-      //colProps: {span: 6},
- 	},
-	{
-      label: "市编码",
-      field: 'cityCode',
-      component: 'Input',
       //colProps: {span: 6},
  	},
 	{
@@ -78,7 +67,10 @@ export const searchFormSchema: FormSchema[] = [
 	{
       label: "客户状态",
       field: 'clientStatus',
-      component: 'Input',
+      component: 'JDictSelectTag',
+      componentProps:{
+          dictCode:"client_status"
+      },
       //colProps: {span: 6},
  	},
      {
@@ -105,14 +97,9 @@ export const formSchema: FormSchema[] = [
     component: 'Input',
   },
   {
-    label: '省编码',
+    label: '区域',
     field: 'provinceCode',
     component: 'JAreaLinkage',
-  },
-  {
-    label: '市编码',
-    field: 'cityCode',
-    component: 'Input',
   },
   {
     label: '批次号',
@@ -138,7 +125,10 @@ export const formSchema: FormSchema[] = [
   {
     label: '客户状态',
     field: 'clientStatus',
-    component: 'Input',
+    component: 'JDictSelectTag',
+    componentProps:{
+        dictCode:"client_status"
+     },
   },
   {
     label: '最近提取时间',
@@ -167,14 +157,13 @@ export const formSchema: FormSchema[] = [
 export const superQuerySchema = {
   clientName: {title: '客户名称',order: 0,view: 'text', type: 'string',},
   address: {title: '地址',order: 1,view: 'text', type: 'string',},
-  provinceCode: {title: '省编码',order: 2,view: 'pca', type: 'string',},
-  cityCode: {title: '市编码',order: 3,view: 'text', type: 'string',},
-  batchNo: {title: '批次号',order: 4,view: 'text', type: 'string',},
-  gender: {title: '性别',order: 5,view: 'list', type: 'string',dictCode: 'sex',},
-  black: {title: '是否黑名单',order: 6,view: 'list', type: 'string',dictCode: 'yn',},
-  clientStatus: {title: '客户状态',order: 7,view: 'text', type: 'string',},
-  lastExportTime: {title: '最近提取时间',order: 8,view: 'datetime', type: 'string',},
-  phone: {title: '客户号码',order: 9,view: 'text', type: 'string',},
+  provinceCode: {title: '区域',order: 2,view: 'pca', type: 'string',},
+  batchNo: {title: '批次号',order: 3,view: 'text', type: 'string',},
+  gender: {title: '性别',order: 4,view: 'list', type: 'string',dictCode: 'sex',},
+  black: {title: '是否黑名单',order: 5,view: 'list', type: 'string',dictCode: 'yn',},
+  clientStatus: {title: '客户状态',order: 6,view: 'list', type: 'string',dictCode: 'client_status',},
+  lastExportTime: {title: '最近提取时间',order: 7,view: 'datetime', type: 'string',},
+  phone: {title: '客户号码',order: 8,view: 'text', type: 'string',},
 };
 
 /**
