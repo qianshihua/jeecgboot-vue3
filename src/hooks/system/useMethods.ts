@@ -90,7 +90,7 @@ export function useMethods() {
   }
 
   return {
-    handleExportXls: (name: string, url: string, params?: object) => exportXls(name, url, params),
+    handleExportXls: (name: string, url: string, params?: object) => exportXls(name, url, params,false),
     handleImportXls: (data, url, success) => importXls(data, url, success),
     handleExportXlsx: (name: string, url: string, params?: object) => exportXls(name, url, params, true),
   };

@@ -8,7 +8,7 @@ import { useMessage } from '/@/hooks/web/useMessage';
 import { useMethods } from '/@/hooks/system/useMethods';
 import { useDesign } from '/@/hooks/web/useDesign';
 import { filterObj } from '/@/utils/common/compUtils';
-const { handleExportXls, handleImportXls } = useMethods();
+const { handleExportXls, handleImportXls,handleExportXlsx } = useMethods();
 
 // 定义 useListPage 方法所需参数
 interface ListPageOptions {
@@ -105,6 +105,94 @@ export function useListPage(options: ListPageOptions) {
       return Promise.reject();
     }
   }
+  // 导出 excel
+  async function onExportXls() {
+    //update-begin---author:wangshuai ---date:20220411  for：导出新增自定义参数------------
+    let { url, name, params } = options?.exportConfig ?? {};
+    let realUrl = typeof url === 'function' ? url() : url;
+    if (realUrl) {
+      let title = typeof name === 'function' ? name() : name;
+      //update-begin-author:taoyan date:20220507 for: erp代码生成 子表 导出报错，原因未知-
+      let paramsForm:any = {};
+      try {
+        paramsForm = await getForm().validate();
+      } catch (e) {
+        console.error(e);
+      }
+      //update-end-author:taoyan date:20220507 for: erp代码生成 子表 导出报错，原因未知-
+
+      //update-begin-author:liusq date:20230410 for:[/issues/409]导出功能没有按排序结果导出,设置导出默认排序，创建时间倒序
+      if(!paramsForm?.column){
+         Object.assign(paramsForm,{column:'createTime',order:'desc'});
+      }
+      //update-begin-author:liusq date:20230410 for: [/issues/409]导出功能没有按排序结果导出,设置导出默认排序，创建时间倒序
+
+      //如果参数不为空，则整合到一起
+      //update-begin-author:taoyan date:20220507 for: erp代码生成 子表 导出动态设置mainId
+      if (params) {
+        Object.keys(params).map((k) => {
+          let temp = (params as object)[k];
+          if (temp) {
+            paramsForm[k] = unref(temp);
+          }
+        });
+      }
+      //update-end-author:taoyan date:20220507 for: erp代码生成 子表 导出动态设置mainId
+      if (selectedRowKeys.value && selectedRowKeys.value.length > 0) {
+        paramsForm['selections'] = selectedRowKeys.value.join(',');
+      }
+      return handleExportXls(title as string, realUrl, filterObj(paramsForm));
+      //update-end---author:wangshuai ---date:20220411  for：导出新增自定义参数--------------
+    } else {
+      $message.createMessage.warn('没有传递 exportConfig.url 参数');
+      return Promise.reject();
+    }
+  }
+
+
+  // 导出 excel
+  async function onExportXlsx() {
+    //update-begin---author:wangshuai ---date:20220411  for：导出新增自定义参数------------
+    let { url, name, params } = options?.exportConfig ?? {};
+    let realUrl = typeof url === 'function' ? url() : url;
+    if (realUrl) {
+      let title = typeof name === 'function' ? name() : name;
+      //update-begin-author:taoyan date:20220507 for: erp代码生成 子表 导出报错，原因未知-
+      let paramsForm:any = {};
+      try {
+        paramsForm = await getForm().validate();
+      } catch (e) {
+        console.error(e);
+      }
+      //update-end-author:taoyan date:20220507 for: erp代码生成 子表 导出报错，原因未知-
+
+      //update-begin-author:liusq date:20230410 for:[/issues/409]导出功能没有按排序结果导出,设置导出默认排序，创建时间倒序
+      if(!paramsForm?.column){
+        Object.assign(paramsForm,{column:'createTime',order:'desc'});
+      }
+      //update-begin-author:liusq date:20230410 for: [/issues/409]导出功能没有按排序结果导出,设置导出默认排序，创建时间倒序
+
+      //如果参数不为空，则整合到一起
+      //update-begin-author:taoyan date:20220507 for: erp代码生成 子表 导出动态设置mainId
+      if (params) {
+        Object.keys(params).map((k) => {
+          let temp = (params as object)[k];
+          if (temp) {
+            paramsForm[k] = unref(temp);
+          }
+        });
+      }
+      //update-end-author:taoyan date:20220507 for: erp代码生成 子表 导出动态设置mainId
+      if (selectedRowKeys.value && selectedRowKeys.value.length > 0) {
+        paramsForm['selections'] = selectedRowKeys.value.join(',');
+      }
+      return handleExportXlsx(title as string, realUrl, filterObj(paramsForm));
+      //update-end---author:wangshuai ---date:20220411  for：导出新增自定义参数--------------
+    } else {
+      $message.createMessage.warn('没有传递 exportConfig.url 参数');
+      return Promise.reject();
+    }
+  }
 
   // 导入 excel
   function onImportXls(file) {
@@ -167,6 +255,7 @@ export function useListPage(options: ListPageOptions) {
     ...$design,
     ...$message,
     onExportXls,
+    onExportXlsx,
     onImportXls,
     doRequest,
     doDeleteRecord,
