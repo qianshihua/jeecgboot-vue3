@@ -49,6 +49,31 @@ export const columns: BasicColumn[] = [
     align:"center",
     dataIndex: 'phone'
    },
+   {
+    title: '接通次数',
+    align:"center",
+    dataIndex: 'onCount'
+   },
+   {
+    title: '总拨打次数',
+    align:"center",
+    dataIndex: 'totalCount'
+   },
+   {
+    title: '最近接通时间',
+    align:"center",
+    dataIndex: 'recentOnTime'
+   },
+   {
+    title: '备注',
+    align:"center",
+    dataIndex: 'price'
+   },
+   {
+    title: '接通率',
+    align:"center",
+    dataIndex: 'onRate'
+   },
 ];
 //查询数据
 export const searchFormSchema: FormSchema[] = [
@@ -144,6 +169,35 @@ export const formSchema: FormSchema[] = [
     field: 'phone',
     component: 'Input',
   },
+  {
+    label: '接通次数',
+    field: 'onCount',
+    component: 'InputNumber',
+  },
+  {
+    label: '总拨打次数',
+    field: 'totalCount',
+    component: 'InputNumber',
+  },
+  {
+    label: '最近接通时间',
+    field: 'recentOnTime',
+    component: 'DatePicker',
+    componentProps: {
+       showTime: true,
+       valueFormat: 'YYYY-MM-DD HH:mm:ss'
+     },
+  },
+  {
+    label: '备注',
+    field: 'price',
+    component: 'Input',
+  },
+  {
+    label: '接通率',
+    field: 'onRate',
+    component: 'InputNumber',
+  },
 	// TODO 主键隐藏字段，目前写死为ID
 	{
 	  label: '',
@@ -164,6 +218,11 @@ export const superQuerySchema = {
   clientStatus: {title: '客户状态',order: 6,view: 'list', type: 'string',dictCode: 'client_status',},
   lastExportTime: {title: '最近提取时间',order: 7,view: 'datetime', type: 'string',},
   phone: {title: '客户号码',order: 8,view: 'text', type: 'string',},
+  onCount: {title: '接通次数',order: 9,view: 'number', type: 'number',},
+  totalCount: {title: '总拨打次数',order: 10,view: 'number', type: 'number',},
+  recentOnTime: {title: '最近接通时间',order: 11,view: 'datetime', type: 'string',},
+  price: {title: '备注',order: 12,view: 'text', type: 'string',},
+  onRate: {title: '接通率',order: 13,view: 'number', type: 'number',},
 };
 
 /**
