@@ -10,7 +10,7 @@ enum Api {
   deleteOne = '/wxf/bizExportRecord/delete',
   deleteBatch = '/wxf/bizExportRecord/deleteBatch',
   importExcel = '/wxf/bizExportRecord/importExcel',
-  exportXls = '/wxf/bizExportRecord/exportXls',
+  exportXls = '/wxf/bizExportRecord/exportXlsAsyn',
 }
 /**
  * 导出api
