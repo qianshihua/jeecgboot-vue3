@@ -1,45 +1,4 @@
 <template>
-  <a-dropdown :class="[prefixCls]" :trigger="trigger" v-bind="$attrs">
-    <span>
-      <slot></slot>
-    </span>
-    <template #overlay>
-      <a-menu :class="[`${prefixCls}-menu`]" :selectedKeys="selectedKeys">
-        <template v-for="item in dropMenuList" :key="`${item.event}`">
-          <a-menu-item
-            v-bind="getAttr(item.event)"
-            @click="handleClickMenu(item)"
-            :disabled="item.disabled"
-            :class="[{ 'is-pop-confirm': item.popConfirm }, item.class ?? []]"
-          >
-            <!-- update-begin--author:liaozhiyang---date:20231110---for：【issues/839】BasicTable表格的更多操作按钮禁用还能点击弹出气泡框 -->
-            <a-popconfirm :disabled="item.disabled" v-if="popconfirm && item.popConfirm" v-bind="getPopConfirmAttrs(item.popConfirm)">
-              <!-- update-end--author:liaozhiyang---date:20231110---for：【issues/839】BasicTable表格的更多操作按钮禁用还能点击弹出气泡框 -->
-              <template #icon v-if="item.popConfirm.icon">
-                <Icon v-if="item.iconColor" :icon="item.popConfirm.icon" :color="item.iconColor" />
-                <Icon v-else :icon="item.popConfirm.icon" />
-              </template>
-              <div class="dropdown-event-area">
-                <Icon :icon="item.icon" v-if="item.icon && item.iconColor" :color="item.iconColor" />
-                <Icon :icon="item.icon" v-else-if="item.icon" />
-                <span class="ml-1">{{ item.text }}</span>
-              </div>
-            </a-popconfirm>
-            <!--  设置动态插槽   -->
-            <template v-else-if="item.slot">
-              <slot :name="item.slot" :label="item.text"></slot>
-            </template>
-            <template v-else>
-              <Icon :icon="item.icon" v-if="item.icon && item.iconColor" :color="item.iconColor" />
-              <Icon :icon="item.icon" v-else-if="item.icon" />
-              <span class="ml-1">{{ item.text }}</span>
-            </template>
-          </a-menu-item>
-          <a-menu-divider v-if="item.divider" :key="`d-${item.event}`" />
-        </template>
-      </a-menu>
-    </template>
-  </a-dropdown>
 </template>
 
 <script lang="ts" setup>
