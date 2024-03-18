@@ -5,7 +5,7 @@
      <!--插槽:table标题-->
       <template #tableTitle>
           <a-button type="primary" @click="handleAdd" preIcon="ant-design:plus-outlined"> 新增</a-button>
-          <a-button  type="primary" preIcon="ant-design:export-outlined" @click="onExportXlsx"> 导出</a-button>
+          <a-button  type="primary" preIcon="ant-design:export-outlined" @click="onExportXls"> 导出</a-button>
           <j-upload-button  type="primary" preIcon="ant-design:import-outlined" @click="onImportXls">导入</j-upload-button>
           <a-dropdown v-if="selectedRowKeys.length > 0">
               <template #overlay>
@@ -43,16 +43,38 @@
   import { useListPage } from '/@/hooks/system/useListPage'
   import BizExportRecordModal from './components/BizExportRecordModal.vue'
   import {columns, searchFormSchema, superQuerySchema} from './BizExportRecord.data';
-  import {list, deleteOne, batchDelete, getImportUrl,getExportUrl} from './BizExportRecord.api';
+  import {
+    list,
+    deleteOne,
+    batchDelete,
+    getImportUrl,
+    getExportUrl,
+    downloadExcel,
+    downloadOne
+  } from './BizExportRecord.api';
   import { downloadFile } from '/@/utils/common/renderUtils';
   import { useUserStore } from '/@/store/modules/user';
+  import { useMethods } from '/@/hooks/system/useMethods';
+  // import {Api} from "@/views/system/depart/depart.api";
+
   const queryParam = reactive<any>({});
   const checkedKeys = ref<Array<string | number>>([]);
   const userStore = useUserStore();
   //注册model
   const [registerModal, {openModal}] = useModal();
+
+
+
+
+
+
+  const { handleImportXls, handleExportXls } = useMethods();
+
+
+
+
   //注册table数据
-  const { prefixCls,tableContext,onExportXlsx,onImportXls } = useListPage({
+  const { prefixCls,tableContext,onExportXlsx,onExportXls,onImportXls } = useListPage({
       tableProps:{
            title: '提取记录表',
            api: list,
@@ -114,22 +136,14 @@
    /**
     * 编辑事件
     */
-  function handleDownload(record: Recordable) {
-     openModal(true, {
-       record,
-       isUpdate: true,
-       showFooter: true,
-     });
+   async function handleDownload(record: Recordable) {
+     await downloadOne({id: record.id}, handleSuccess);
    }
    /**
     * 详情
    */
-  function handleDetail(record: Recordable) {
-     openModal(true, {
-       record,
-       isUpdate: true,
-       showFooter: false,
-     });
+   async function handleDetail(record: Recordable) {
+     await downloadOne({id: record.id}, handleSuccess);
    }
    /**
     * 删除事件
@@ -156,7 +170,9 @@
        return [
          {
            label: '下载文件',
-           onClick: handleDownload.bind(null, record),
+           onClick:  handleExportXls.bind(null,"号码资源", downloadExcel,{id: record.id}),
+           // onClick:  handleDownload.bind(null, record),
+           // onClick: handleDownload.bind(null, record),
          }
        ]
    }
@@ -166,9 +182,6 @@
   function getDropDownAction(record){
        return [
          {
-           label: '详情',
-           onClick: handleDetail.bind(null, record),
-         }, {
            label: '删除',
            popConfirm: {
              title: '是否确认删除',
