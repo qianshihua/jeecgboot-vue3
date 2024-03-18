@@ -4,24 +4,10 @@
    <BasicTable @register="registerTable" :rowSelection="rowSelection">
      <!--插槽:table标题-->
       <template #tableTitle>
-          <a-button type="primary" @click="handleAdd" preIcon="ant-design:plus-outlined"> 新增</a-button>
-          <a-button  type="primary" preIcon="ant-design:export-outlined" @click="onExportXls"> 导出</a-button>
-          <j-upload-button  type="primary" preIcon="ant-design:import-outlined" @click="onImportXls">导入</j-upload-button>
-          <a-dropdown v-if="selectedRowKeys.length > 0">
-              <template #overlay>
-                <a-menu>
-                  <a-menu-item key="1" @click="batchHandleDelete">
-                    <Icon icon="ant-design:delete-outlined"></Icon>
-                    删除
-                  </a-menu-item>
-                </a-menu>
-              </template>
-              <a-button>批量操作
-                <Icon icon="mdi:chevron-down"></Icon>
-              </a-button>
-        </a-dropdown>
+          <a-button  type="primary" preIcon="ant-design:export-outlined" @click="handleSubmit"> 提交取数任务</a-button>
+
         <!-- 高级查询 -->
-        <super-query :config="superQueryConfig" @search="handleSuperQuery" />
+<!--        <super-query :config="superQueryConfig" @search="handleSuperQuery" />-->
       </template>
        <!--操作栏-->
       <template #action="{ record }">
@@ -50,7 +36,8 @@
     getImportUrl,
     getExportUrl,
     downloadExcel,
-    downloadOne
+    submitTask,
+    downloadOne, submitFunc
   } from './BizExportRecord.api';
   import { downloadFile } from '/@/utils/common/renderUtils';
   import { useUserStore } from '/@/store/modules/user';
@@ -74,7 +61,7 @@
 
 
   //注册table数据
-  const { prefixCls,tableContext,onExportXlsx,onExportXls,onImportXls } = useListPage({
+  const { prefixCls,tableContext,onExportXlsx,onExportXls,onImportXls,submitExportTask } = useListPage({
       tableProps:{
            title: '提取记录表',
            api: list,
@@ -142,8 +129,8 @@
    /**
     * 详情
    */
-   async function handleDetail(record: Recordable) {
-     await downloadOne({id: record.id}, handleSuccess);
+   async function handleSubmit() {
+     await submitFunc(queryParam, handleSuccess);
    }
    /**
     * 删除事件
