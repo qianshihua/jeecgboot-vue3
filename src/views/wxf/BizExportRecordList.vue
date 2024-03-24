@@ -4,7 +4,7 @@
    <BasicTable @register="registerTable" :rowSelection="rowSelection">
      <!--插槽:table标题-->
       <template #tableTitle>
-          <a-button  type="primary" preIcon="ant-design:export-outlined" @click="handleSubmit()"> 提交取数任务</a-button>
+<!--          <a-button  type="primary" preIcon="ant-design:export-outlined" @click="handleSubmit()"> 提交取数任务</a-button>-->
 
         <!-- 高级查询 -->
 <!--        <super-query :config="superQueryConfig" @search="handleSuperQuery" />-->
