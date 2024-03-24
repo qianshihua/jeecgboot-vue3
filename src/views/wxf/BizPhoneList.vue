@@ -27,13 +27,9 @@
       <template #action="{ record }">
         <TableAction :actions="getTableAction(record)" :dropDownActions="getDropDownAction(record)"/>
       </template>
-<!--      &lt;!&ndash;字段回显插槽&ndash;&gt;-->
-<!--      <template v-slot:bodyCell="{ column, record, index, text }">-->
-<!--        <template v-if="column.dataIndex==='provinceCode'">-->
-<!--          &lt;!&ndash;省市区字段回显插槽&ndash;&gt;-->
-<!--          {{ getAreaTextByCode(text) }}-->
-<!--        </template>-->
-<!--      </template>-->
+      <!--字段回显插槽-->
+      <template v-slot:bodyCell="{ column, record, index, text }">
+      </template>
     </BasicTable>
     <!-- 表单区域 -->
     <BizPhoneModal @register="registerModal" @success="handleSuccess"></BizPhoneModal>
@@ -50,7 +46,6 @@
   import {list, deleteOne, batchDelete, getImportUrl,getExportUrl} from './BizPhone.api';
   import { downloadFile } from '/@/utils/common/renderUtils';
   import { useUserStore } from '/@/store/modules/user';
-  import { getAreaTextByCode } from '/@/components/Form/src/utils/Area';
   const queryParam = reactive<any>({});
   const checkedKeys = ref<Array<string | number>>([]);
   const userStore = useUserStore();

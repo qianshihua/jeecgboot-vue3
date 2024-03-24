@@ -65,8 +65,10 @@
               showAdvancedButton:true,
               fieldMapToNumber: [
               ],
-              fieldMapToTime: [
-              ],
+             fieldMapToTime: [
+               ['signTime', ['signTime_begin', 'signTime_end'], 'YYYY-MM-DD HH:mm:ss'],
+               ['transferCreateTime', ['transferCreateTime_begin', 'transferCreateTime_end'], 'YYYY-MM-DD HH:mm:ss'],
+             ],
             },
            actionColumn: {
                width: 120,
