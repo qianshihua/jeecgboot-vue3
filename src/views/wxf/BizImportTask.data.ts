@@ -5,7 +5,7 @@ import { render } from '/@/utils/common/renderUtils';
 //列表数据
 export const columns: BasicColumn[] = [
    {
-    title: 'createTime',
+    title: '创建时间',
     align:"center",
     dataIndex: 'createTime'
    },
@@ -24,6 +24,16 @@ export const columns: BasicColumn[] = [
     align:"center",
     dataIndex: 'batchNo'
    },
+  {
+    title: '开始时间',
+    align:"center",
+    dataIndex: 'startTime'
+  },
+  {
+    title: '结束时间',
+    align:"center",
+    dataIndex: 'endTime'
+  },
 ];
 //查询数据
 export const searchFormSchema: FormSchema[] = [

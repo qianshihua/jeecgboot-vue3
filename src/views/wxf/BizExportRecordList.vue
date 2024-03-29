@@ -56,7 +56,7 @@
 
 
 
-  const { handleImportXls, handleExportXls } = useMethods();
+  const { handleImportXls, handleExportXls,handleExportXlsx } = useMethods();
 
 
 
@@ -162,7 +162,7 @@
        return [
          {
            label: '下载文件',
-           onClick:  handleExportXls.bind(null,"号码资源", downloadExcel,{id: record.id}),
+           onClick:  handleExportXlsx.bind(null,"号码资源", downloadExcel,{id: record.id}),
            // onClick:  handleDownload.bind(null, record),
            // onClick: handleDownload.bind(null, record),
          }
