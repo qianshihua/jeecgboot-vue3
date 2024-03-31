@@ -5,6 +5,16 @@ import { render } from '/@/utils/common/renderUtils';
 //列表数据
 export const columns: BasicColumn[] = [
   {
+    title: '批次号',
+    align:"center",
+    dataIndex: 'batchNo'
+  },
+  {
+    title: '创建时间',
+    align:"center",
+    dataIndex: 'createTime'
+  },
+  {
     title: '提取时间',
     align:"center",
     dataIndex: 'exportTime'
@@ -20,7 +30,7 @@ export const columns: BasicColumn[] = [
   //  dataIndex: 'fileAddress'
   // },
   {
-    title: '提取规则描述',
+    title: '提取规则',
     align:"center",
     dataIndex: 'exportRule'
   },

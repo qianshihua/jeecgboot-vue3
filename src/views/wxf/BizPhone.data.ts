@@ -10,7 +10,7 @@ export const columns: BasicColumn[] = [
     dataIndex: 'phone'
   },
   {
-    title: '客户名称',
+    title: '客户姓名',
     align:"center",
     dataIndex: 'clientName'
   },
@@ -158,7 +158,7 @@ export const formSchema: FormSchema[] = [
     component: 'Input',
   },
   {
-    label: '客户名称',
+    label: '客户姓名',
     field: 'clientName',
     component: 'Input',
   },
@@ -263,7 +263,7 @@ export const formSchema: FormSchema[] = [
 // 高级查询数据
 export const superQuerySchema = {
   phone: {title: '客户号码',order: 0,view: 'text', type: 'string',},
-  clientName: {title: '客户名称',order: 1,view: 'text', type: 'string',},
+  clientName: {title: '客户姓名',order: 1,view: 'text', type: 'string',},
   provinceCode: {title: '省',order: 2,view: 'list', type: 'string',dictCode: 'province',},
   cityCode: {title: '市',order: 3,view: 'list', type: 'string',dictCode: 'city',},
   address: {title: '地址',order: 4,view: 'text', type: 'string',},
