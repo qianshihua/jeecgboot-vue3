@@ -79,6 +79,11 @@ export const formSchema: FormSchema[] = [
     field: 'invalidNum',
     component: 'InputNumber',
   },
+  {
+    label: '备注',
+    field: 'bz',
+    component: 'Input',
+  },
   // TODO 主键隐藏字段，目前写死为ID
   {
     label: '',

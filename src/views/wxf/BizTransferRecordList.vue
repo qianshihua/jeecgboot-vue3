@@ -43,7 +43,7 @@
   import { useListPage } from '/@/hooks/system/useListPage'
   import BizTransferRecordModal from './components/BizTransferRecordModal.vue'
   import {columns, searchFormSchema, superQuerySchema} from './BizTransferRecord.data';
-  import {list, deleteOne, batchDelete, getImportUrl,getExportUrl} from './BizTransferRecord.api';
+  import {list, deleteOne, batchDelete, getImportUrl,getExportUrl,wxfListTransferStatusApi} from './BizTransferRecord.api';
   import { downloadFile } from '/@/utils/common/renderUtils';
   import { useUserStore } from '/@/store/modules/user';
   const queryParam = reactive<any>({});
