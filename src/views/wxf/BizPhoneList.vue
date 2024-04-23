@@ -6,7 +6,7 @@
       <template #tableTitle>
           <a-button type="primary" @click="handleAdd" preIcon="ant-design:plus-outlined"> 新增</a-button>
           <a-button  type="primary" preIcon="ant-design:export-outlined" @click="onExportXls"> 导出</a-button>
-          <j-upload-button  type="primary" preIcon="ant-design:import-outlined" @click="onImportXls">导入</j-upload-button>
+          <a-button  type="primary" preIcon="ant-design:import-outlined" @click="handleImoprt">导入</a-button>
           <a-dropdown v-if="selectedRowKeys.length > 0">
               <template #overlay>
                 <a-menu>
@@ -33,6 +33,7 @@
     </BasicTable>
     <!-- 表单区域 -->
     <BizPhoneModal @register="registerModal" @success="handleSuccess"></BizPhoneModal>
+    <BizPhoneImportModal @register="registerModalJimport" :url="getImportUrl" online />
   </div>
 </template>
 
@@ -46,13 +47,16 @@
   import {list, deleteOne, batchDelete, getImportUrl,getExportUrl} from './BizPhone.api';
   import { downloadFile } from '/@/utils/common/renderUtils';
   import { useUserStore } from '/@/store/modules/user';
+  import BizPhoneImportModal from "./BizPhoneImportModal.vue";
   const queryParam = reactive<any>({});
   const checkedKeys = ref<Array<string | number>>([]);
   const userStore = useUserStore();
   //注册model
   const [registerModal, {openModal}] = useModal();
+  const [registerModalJimport, { openModal: openModalJimport }] = useModal();
+
   //注册table数据
-  const { prefixCls,tableContext,onExportXls,onImportXls } = useListPage({
+  const { prefixCls,tableContext,onExportXls,onImportXls } = useListPage({ // onImportXls todo
       tableProps:{
            title: '号码资源表',
            api: list,
@@ -130,6 +134,12 @@
        isUpdate: true,
        showFooter: false,
      });
+   }
+   /**
+    * 导入
+   */
+  function handleImoprt() {
+     openModalJimport(true);
    }
    /**
     * 删除事件
