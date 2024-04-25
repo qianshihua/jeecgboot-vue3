@@ -110,6 +110,19 @@ export const searchFormSchema: FormSchema[] = [
   //   //colProps: {span: 6},
   // },
   {
+    field: 'rwlx',
+    component: 'RadioGroup',
+    label: '任务类型',
+    componentProps: {
+      options: [
+        {
+          label: '查询',
+          value: 'cx',
+        },
+      ],
+    },
+  },
+  {
     label: "号码",
     field: 'phone',
     component: 'Input',

@@ -42,6 +42,19 @@ export const columns: BasicColumn[] = [
 ];
 //查询数据
 export const searchFormSchema: FormSchema[] = [
+  {
+    field: 'rwlx',
+    component: 'RadioGroup',
+    label: '任务类型',
+    componentProps: {
+      options: [
+        {
+          label: '查询',
+          value: 'cx',
+        },
+      ],
+    },
+  },
 ];
 //表单数据
 export const formSchema: FormSchema[] = [
