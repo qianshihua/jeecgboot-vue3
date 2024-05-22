@@ -11,13 +11,13 @@
 <!--                    checked-children="是" un-checked-children="否"/>-->
 <!--        </span>-->
 <!--      </div>-->
-<!--      <div style="margin: 0 5px 5px">-->
-<!--        <span-->
-<!--          style="display: inline-block; height: 32px; line-height: 32px; vertical-align: middle">批次号:</span>-->
-<!--        <span style="margin-left: 6px">-->
-<!--          <a-input @change="inputChange"/>-->
-<!--        </span>-->
-<!--      </div>-->
+      <div style="margin: 0 5px 5px">
+        <span
+          style="display: inline-block; height: 32px; line-height: 32px; vertical-align: middle">批次号:</span>
+        <span style="margin-left: 6px">
+          <a-input name="batchNo"  @change="inputChange"/>
+        </span>
+      </div>
       <!--上传-->
       <a-upload name="file" accept=".xls,.xlsx" :multiple="true" :fileList="fileList"
                 @remove="handleRemove" :beforeUpload="beforeUpload">
@@ -82,6 +82,7 @@ export default defineComponent({
     //上传url
     const uploadAction = ref('');
     const foreignKeys = ref('');
+    const batchNo = ref('');
     //校验状态
     const validateStatus = ref(0);
     const inputValue = ref(0);
@@ -106,8 +107,8 @@ export default defineComponent({
       validateStatus.value = !!checked ? 1 : 0;
     }
 
-    function inputChange(value) {
-      inputValue.value = value
+    function inputChange(event) {
+      inputValue.value = event.target.value
     }
 
     //移除上传文件
@@ -131,12 +132,9 @@ export default defineComponent({
       if (biz) {
         formData.append('isSingleTableImport', biz);
       }
-      if (unref(foreignKeys) && unref(foreignKeys).length > 0) {
-        formData.append('foreignKeys', unref(foreignKeys));
-      }
-      if (!!online) {
-        formData.append('validateStatus', unref(validateStatus));
-      }
+      formData.append('batchNo', inputValue.value);
+
+
       unref(fileList).forEach((file) => {
         formData.append('files[]', file);
       });
