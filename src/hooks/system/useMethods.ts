@@ -8,11 +8,12 @@ const glob = useGlobSetting();
 /**
  * 导出文件xlsx的mime-type
  */
-export const XLSX_MIME_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
+// export const XLSX_MIME_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
+export const XLSX_MIME_TYPE = 'text/csv';
 /**
  * 导出文件xlsx的文件后缀
  */
-export const XLSX_FILE_SUFFIX = '.xlsx';
+export const XLSX_FILE_SUFFIX = '.csv';
 
 export function useMethods() {
   /**
